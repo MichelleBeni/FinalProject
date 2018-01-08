@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +17,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     Intent intent;
     Context context;
     FirebaseAuth firebaseAuth;
+    Button search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,15 +26,24 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
         SignOut.setOnClickListener(this);
+        search= (Button) findViewById(R.id.search_ad);
+        search.setOnClickListener(this);
         context= this;
     }
 
     @Override
     public void onClick(View v) {
 
-        firebaseAuth.signOut();
-        intent = new Intent(context,Enter_Activity.class);
-        startActivity(intent);
+       if(v==SignOut) {
+           firebaseAuth.signOut();
+           intent = new Intent(context, Enter_Activity.class);
+           startActivity(intent);
+       }
+       if(v==search)
+       {
+           intent = new Intent(context,SearchAd.class);
+           startActivity(intent);
+       }
 
     }
 }

@@ -26,6 +26,7 @@ android:background="@drawable/back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/search"
+            android:id="@+id/search_ad"
             />
         <TextView
             android:layout_width="match_parent"
@@ -58,7 +59,7 @@ android:background="@drawable/back"
             android:background="@drawable/emoji" />
 
         <ImageView
-            android:id="@+id/AddMassage"
+            android:id="@+id/AddAd"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="100dp"
