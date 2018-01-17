@@ -21,7 +21,8 @@
         <activity android:name=".SignUp_Activity" />
         <activity android:name=".MyProfile" />
         <activity android:name=".MainScreen" />
-        <activity android:name=".SearchAd"></activity>
+        <activity android:name=".SearchAd" />
+        <activity android:name=".AddAd"></activity>
     </application>
 
 </manifest>

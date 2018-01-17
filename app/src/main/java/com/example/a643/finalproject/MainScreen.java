@@ -18,6 +18,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     Context context;
     FirebaseAuth firebaseAuth;
     Button search;
+    Button addAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         search= (Button) findViewById(R.id.search_ad);
         search.setOnClickListener(this);
         context= this;
+        addAd=(Button)findViewById(R.id.AddAd);
+        addAd.setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +45,11 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
        if(v==search)
        {
            intent = new Intent(context,SearchAd.class);
+           startActivity(intent);
+       }
+       if(v==addAd)
+       {
+           intent = new Intent(context,AddAd.class);
            startActivity(intent);
        }
 

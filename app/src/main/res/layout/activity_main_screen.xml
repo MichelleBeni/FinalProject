@@ -58,7 +58,7 @@ android:background="@drawable/back"
             android:layout_marginRight="110dp"
             android:background="@drawable/emoji" />
 
-        <ImageView
+        <Button
             android:id="@+id/AddAd"
             android:layout_width="50dp"
             android:layout_height="wrap_content"

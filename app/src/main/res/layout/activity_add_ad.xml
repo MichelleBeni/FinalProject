@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a643.finalproject.AddAd"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp">
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
+        android:background="@color/common_google_signin_btn_text_light_disabled"
+        android:hint="name of product"
+        android:textColor="@color/common_google_signin_btn_text_dark"
+        android:id="@+id/product"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+       >
+
+        <Button
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="120dp"
+            android:background="@drawable/add"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="25dp"
+            android:background="@color/common_google_signin_btn_text_light_disabled"
+            android:hint="info about product"
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:id="@+id/info"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp">
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="25dp"
+            android:background="#3000"
+            android:text="Add the ad "
+            android:textColor="@android:color/white"
+            android:id="@+id/addNewAd"/>
+
+    </LinearLayout>
+
+</LinearLayout>
