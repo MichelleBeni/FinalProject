@@ -21,4 +21,5 @@ public class Ad {
         this.phone=phone;
 
     }
+
 }

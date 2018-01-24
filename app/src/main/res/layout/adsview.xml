@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/adImage"
+        android:background="@drawable/ad_p"/>
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitle"
+            android:textSize="20dp"
+            android:text="title"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#0e82f5"
+
+            />
+
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvInfo"
+            android:textSize="20dp"
+            android:text="info"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#6ef50e" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPhone"
+            android:textColor="#dc130c"
+            android:textSize="15sp"
+            android:text="0508655654"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
+
+
+
+
+            />
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEmail"
+            android:textColor="#dc130c"
+            android:textSize="15sp"
+            android:text="mishel99990@gmail.com"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+
+
+
+            />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
