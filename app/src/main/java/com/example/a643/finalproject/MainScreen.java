@@ -27,6 +27,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     FirebaseAuth firebaseAuth;
     Button search;
     Button addAd;
+    ImageView myProfile;
     ListView lv;
     ArrayList<Ad> ads;
     AllAdsAdapter allAdsAdapter;
@@ -39,7 +40,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         lv= (ListView)findViewById(R.id.lv);
         this.retriveData();
 
-
+        myProfile = (ImageView) findViewById(R.id.myProfile);
+        myProfile.setOnClickListener(this);
         SignOut= (TextView)findViewById(R.id.SignOut);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
@@ -90,6 +92,11 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
        if(v==addAd)
        {
            intent = new Intent(context,AddAd.class);
+           startActivity(intent);
+       }
+       if(v==myProfile)
+       {
+           intent = new Intent(context,MyProfile.class);
            startActivity(intent);
        }
 
