@@ -22,4 +22,19 @@ public class Ad {
 
     }
 
+    public String getNameProduct() {
+        return nameProduct;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }

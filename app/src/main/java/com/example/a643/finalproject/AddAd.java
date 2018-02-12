@@ -9,8 +9,13 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class AddAd extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth FirebaseAuth;
@@ -19,6 +24,10 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
     EditText name;
     EditText info;
     Button add;
+    String userEmail;
+    DatabaseReference userRef;
+    ArrayList<User> users;
+    String phone;
 
 
 
@@ -34,15 +43,51 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
         name.setOnClickListener(this);
         info = (EditText)findViewById(R.id.info);
         info.setOnClickListener(this);
-       FirebaseUser firebaseUser= FirebaseAuth.getCurrentUser();
+        FirebaseUser firebaseUser= FirebaseAuth.getCurrentUser();
+        userEmail=firebaseUser.getEmail();
+        userRef = database.getReference("Users");
+        this.retrieveData();
+
 
     }
+    public void retrieveData() {
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                users = new ArrayList<>();
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    User user = data.getValue(User.class);
+                    users.add(user);
+
+                }
+
+                for (int i = 0; i < users.size(); i++) {
+                    String mail = users.get(i).getEmail();
+                    if (mail.equalsIgnoreCase(userEmail)) {
+
+                        phone=users.get(i).getPhone().toString();
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
     @Override
     public void onClick(View v) {
     if(v==add)
     {
-        Ad ad= new Ad(name.getText().toString(), info.getText().toString(), "Jake", "0508655654" );
+        Ad ad= new Ad(name.getText().toString(), info.getText().toString(), userEmail, phone );
         adRef = database.getReference("AD").push();
         adRef.setValue(ad);
         Intent intent = new Intent(AddAd.this,MainScreen.class);

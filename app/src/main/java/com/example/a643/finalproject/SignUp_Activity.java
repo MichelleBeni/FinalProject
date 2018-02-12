@@ -52,6 +52,11 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                 if(task.isSuccessful())
                 {
                     Toast.makeText(SignUp_Activity.this,"Successfully registered", Toast.LENGTH_LONG).show();
+                    User user = new User(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
+                    userRef = database.getReference("Users").push();
+                    userRef.setValue(user);
+                    Intent intent = new Intent(SignUp_Activity.this,Enter_Activity.class);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(SignUp_Activity.this, "Registration Error", Toast.LENGTH_LONG).show();
@@ -64,12 +69,6 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if(v==btnSignUp) {
             register();
-            User user = new User(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
-            userRef = database.getReference("Users").push();
-            userRef.setValue(user);
-            Intent intent = new Intent(SignUp_Activity.this,Enter_Activity.class);
-            startActivity(intent);
-
         }
     }
 }

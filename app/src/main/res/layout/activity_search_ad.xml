@@ -27,13 +27,40 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="search"
-            android:id="@+id/search_ad2"
+            android:id="@+id/searchKey"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/search"/>
+            android:background="@drawable/search"
+            android:id="@+id/searchAd"/>
     </LinearLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:id="@+id/SearchTitle"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/SearchInfo"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:id="@+id/SearchEEmail"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:id="@+id/SearchPhone"/>
+
+
 
 
 </LinearLayout>

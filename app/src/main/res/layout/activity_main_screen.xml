@@ -14,13 +14,7 @@ android:background="@drawable/back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="225dp"
-            android:layout_height="50dp"
-            android:background="@color/common_google_signin_btn_text_light_disabled"
-            android:hint="search"
-            android:textColor="@color/common_google_signin_btn_text_dark"/>
+
 
         <Button
             android:layout_width="50dp"

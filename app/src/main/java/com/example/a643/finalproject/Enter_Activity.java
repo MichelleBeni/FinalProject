@@ -25,7 +25,7 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
     EditText edEmail;
     EditText edPassword;
     Dialog d;
-FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth;
     boolean succes;
     int mode=0; //0 register, 1 login
     @Override

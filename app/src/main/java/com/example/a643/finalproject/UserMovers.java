@@ -7,17 +7,17 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 @IgnoreExtraProperties
 
-public class User_Movers extends User {
+public class UserMovers extends User {
 
     char licenseType;
     int yearsDrive;
     int typeMover; // 0 = always, 1=sometimes
 
-    public User_Movers()
+    public UserMovers()
     {
 
     }
-    public User_Movers(String name, String phone, String email, String password, char licenseType, int yearsDrive, int typeMover)
+    public UserMovers(String name, String phone, String email, String password, char licenseType, int yearsDrive, int typeMover)
     {
         super(name, phone, email, password);
         this.licenseType=licenseType;
