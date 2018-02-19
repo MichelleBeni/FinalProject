@@ -2,9 +2,11 @@ package com.example.a643.finalproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +26,11 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
     FirebaseAuth firebaseAuth;
     DatabaseReference Adref;
     ArrayList<Ad> ads;
+    ArrayList<Ad> adsFind;
 
-    TextView title;
-    TextView info;
-    TextView email;
-    TextView phone;
+
+    AllAdsAdapter allAdsAdapter;
+    ListView lv;
 
 
     @Override
@@ -41,11 +43,11 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         Adref = database.getReference("AD");
+        adsFind= new ArrayList<>();
 
-        title = findViewById(R.id.SearchTitle);
-        info = findViewById(R.id.SearchInfo);
-        email = findViewById(R.id.SearchEEmail);
-        phone = findViewById(R.id.SearchPhone);
+
+
+        lv= (ListView)findViewById(R.id.lvSearch);
 
 
     }
@@ -67,14 +69,14 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
                     String Phone= ads.get(i).getPhone();
                     if (Title.contains(Key)||Info.contains(Key) || Email.contains(Key)|| Phone.contains(Key)) {
 
-                      title.setText(Title);
-                        info.setText(Info);
-                        email.setText(Email);
-                        phone.setText(Phone);
+                     adsFind.add(ads.get(i));
                     }
 
 
                 }
+                Log.d(adsFind.get(0).toString(), "onDataChange: ");
+                allAdsAdapter = new AllAdsAdapter(SearchAd.this,0,0,adsFind);
+                lv.setAdapter(allAdsAdapter);
             }
 
             @Override

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,10 +22,15 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
     EditText etPhone;
     EditText etEmail;
     EditText etPassword;
+    EditText etType;
+    EditText etYears;
     Button btnSignUp;
     FirebaseAuth FirebaseAuth;
     FirebaseDatabase database;
     DatabaseReference userRef;
+    CheckBox Mover;
+
+
 
 
     @Override
@@ -34,11 +40,13 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
 
         btnSignUp= (Button)findViewById(R.id.SignUp);
         btnSignUp.setOnClickListener(this);
-
+        Mover= findViewById(R.id.ifMover);
         etName=(EditText)findViewById(R.id.name);
         etPhone=(EditText)findViewById(R.id.Phone);
         etEmail=(EditText)findViewById(R.id.EmailSignUp);
         etPassword=(EditText)findViewById(R.id.PasswordSignUp);
+        etType= findViewById(R.id.licenseType);
+        etYears=findViewById(R.id.years);
         FirebaseAuth = FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
     }
@@ -52,9 +60,18 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                 if(task.isSuccessful())
                 {
                     Toast.makeText(SignUp_Activity.this,"Successfully registered", Toast.LENGTH_LONG).show();
-                    User user = new User(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
-                    userRef = database.getReference("Users").push();
-                    userRef.setValue(user);
+                    if(Mover.isChecked())
+                    {
+                        UserMovers userMover = new UserMovers(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(),
+                                etPassword.getText().toString(),etType.getText().toString(),etYears.getText().toString(),"Always");
+                        userRef= database.getReference("Users").push();
+                        userRef.setValue(userMover);
+                    }
+                    else {
+                        User user = new User(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
+                        userRef = database.getReference("Users").push();
+                        userRef.setValue(user);
+                    }
                     Intent intent = new Intent(SignUp_Activity.this,Enter_Activity.class);
                     startActivity(intent);
                 }

@@ -64,6 +64,72 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         >
+        <CheckBox
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/ifMover"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Mover"
+            android:textSize="20dp"
+            android:layout_marginTop="12dp"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="50dp"
+            android:hint="license Type"
+            android:id="@+id/licenseType"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="50dp"
+            android:hint="years Driving"
+            android:id="@+id/years"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <CheckBox
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/Always"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Always"/>
+        <CheckBox
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/sometimes"/>
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:text="Sometimes"/>
+
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
         <Button
             android:id="@+id/SignUp"
             android:layout_width="270dp"
@@ -73,19 +139,6 @@
             android:text="Sign Up "
             android:textColor="@android:color/white" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:text="Sign up as a mover "
-            android:textSize="20dp"
-            android:id="@+id/SignUpMoverButton"/>
-
-    </LinearLayout>
+   
 
 </LinearLayout>

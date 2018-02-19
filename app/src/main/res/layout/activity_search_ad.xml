@@ -35,31 +35,15 @@
             android:background="@drawable/search"
             android:id="@+id/searchAd"/>
     </LinearLayout>
-    <TextView
-        android:layout_marginTop="20dp"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20dp"
-        android:id="@+id/SearchTitle"/>
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:id="@+id/SearchInfo"/>
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20dp"
-        android:id="@+id/SearchEEmail"/>
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="20dp"
-        android:id="@+id/SearchPhone"/>
+        android:layout_height="match_parent"
+        android:id="@+id/lvSearch"
+        >
 
+
+
+    </ListView>
 
 
 
