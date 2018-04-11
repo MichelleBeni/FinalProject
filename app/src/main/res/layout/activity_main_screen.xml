@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
    tools:context="com.example.a643.finalproject.MainScreen"
-android:background="@drawable/back"
+
     >
 
 
@@ -22,17 +22,19 @@ android:background="@drawable/back"
             android:background="@drawable/search"
             android:id="@+id/search_ad"
             />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Sign Out"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@android:color/white"
             android:id="@+id/SignOut"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Sign Out"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:layout_marginLeft="220dp"
 
             />
-        </LinearLayout>
+    </LinearLayout>
 
 
 <LinearLayout
@@ -50,30 +52,32 @@ android:background="@drawable/back"
     </ListView>
 
 </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4000">
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/myProfile"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginRight="110dp"
-            android:background="@drawable/emoji" />
+            android:background="@drawable/profile" />
 
         <Button
             android:id="@+id/AddAd"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="100dp"
-            android:background="@drawable/add" />
+            android:background="@drawable/plus" />
 
         <ImageView
             android:id="@+id/messages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/message" />
+            android:background="@drawable/chat" />
     </LinearLayout>
 
 

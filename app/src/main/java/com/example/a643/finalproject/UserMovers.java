@@ -10,18 +10,18 @@ public class UserMovers extends User {
 
     String licenseType;
     String yearsDrive;
-    String typeMover; // 0 = always, 1=sometimes
+
 
     public UserMovers()
     {
 
     }
-    public UserMovers(String name, String phone, String email, String password, String licenseType, String yearsDrive, String typeMover)
+    public UserMovers(String name, String phone, String email, String password, String licenseType, String yearsDrive )
     {
         super(name, phone, email, password);
         this.licenseType=licenseType;
         this.yearsDrive=yearsDrive;
-        this.typeMover=typeMover;
+
 
     }
 }

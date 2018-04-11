@@ -1,5 +1,6 @@
 package com.example.a643.finalproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 public class SearchAd extends AppCompatActivity implements View.OnClickListener {
     Button btnSearch;
@@ -37,9 +40,9 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_ad);
-        btnSearch = findViewById(R.id.searchAd);
+        btnSearch = (Button)findViewById(R.id.searchAd);
         btnSearch.setOnClickListener(this);
-        searchKey = findViewById(R.id.searchKey);
+        searchKey = (EditText) findViewById(R.id.searchKey);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         Adref = database.getReference("AD");
@@ -56,6 +59,7 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
         Adref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                    adsFind.clear();
                 ads = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Ad ad = data.getValue(Ad.class);
@@ -77,6 +81,7 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
                 Log.d(adsFind.get(0).toString(), "onDataChange: ");
                 allAdsAdapter = new AllAdsAdapter(SearchAd.this,0,0,adsFind);
                 lv.setAdapter(allAdsAdapter);
+
             }
 
             @Override
@@ -87,7 +92,10 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
     }
     public void searchAd() {
         Key = searchKey.getText().toString();
+
         retrieveData();
+
+
 
 
     }
@@ -95,7 +103,11 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v == btnSearch) {
+
             searchAd();
+
+
+
 
         }
     }

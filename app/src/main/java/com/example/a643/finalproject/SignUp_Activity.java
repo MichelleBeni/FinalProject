@@ -40,13 +40,13 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
 
         btnSignUp= (Button)findViewById(R.id.SignUp);
         btnSignUp.setOnClickListener(this);
-        Mover= findViewById(R.id.ifMover);
+        Mover= (CheckBox)findViewById(R.id.ifMover);
         etName=(EditText)findViewById(R.id.name);
         etPhone=(EditText)findViewById(R.id.Phone);
         etEmail=(EditText)findViewById(R.id.EmailSignUp);
         etPassword=(EditText)findViewById(R.id.PasswordSignUp);
-        etType= findViewById(R.id.licenseType);
-        etYears=findViewById(R.id.years);
+        etType=(EditText)findViewById(R.id.type);
+        etYears=(EditText)findViewById(R.id.years);
         FirebaseAuth = FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
     }
@@ -63,7 +63,7 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                     if(Mover.isChecked())
                     {
                         UserMovers userMover = new UserMovers(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(),
-                                etPassword.getText().toString(),etType.getText().toString(),etYears.getText().toString(),"Always");
+                                etPassword.getText().toString(),etType.getText().toString(),etYears.getText().toString());
                         userRef= database.getReference("Users").push();
                         userRef.setValue(userMover);
                     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.a643.finalproject.SearchAd"
-    android:background="@drawable/back">
+   >
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -17,11 +17,11 @@
 
     android:text="Search Results:"
     android:textSize="50dp"
-    android:textColor="@android:color/white"/>
+    android:textColor="@color/colorPrimary"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/common_google_signin_btn_text_light_disabled"
+
         >
         <EditText
             android:layout_width="300dp"

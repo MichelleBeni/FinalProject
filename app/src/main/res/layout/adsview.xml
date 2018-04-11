@@ -20,7 +20,7 @@
             android:text="title"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="#0e82f5"
+            android:textColor="@color/colorPrimary"
 
             />
 
@@ -35,7 +35,7 @@
             android:text="info"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="#6ef50e" />
+            android:textColor="@color/colorAccentDark" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvPhone"
-            android:textColor="#dc130c"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="15sp"
             android:text="0508655654"
             android:gravity="right"
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvEmail"
-            android:textColor="#dc130c"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="15sp"
             android:text="mishel99990@gmail.com"
             android:gravity="right"

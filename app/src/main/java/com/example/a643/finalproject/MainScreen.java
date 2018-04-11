@@ -1,7 +1,9 @@
 package com.example.a643.finalproject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class MainScreen extends AppCompatActivity implements View.OnClickListener {
     TextView SignOut;
     Intent intent;
@@ -30,6 +34,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     ImageView myProfile;
     ListView lv;
     ArrayList<Ad> ads;
+    private android.app.AlertDialog loading;
     AllAdsAdapter allAdsAdapter;
     private DatabaseReference database;
     @Override
@@ -38,7 +43,10 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_main_screen);
         database= FirebaseDatabase.getInstance().getReference("AD");
         lv= (ListView)findViewById(R.id.lv);
-        this.retriveData();
+
+      this.retriveData();
+
+
 
         myProfile = (ImageView) findViewById(R.id.myProfile);
         myProfile.setOnClickListener(this);
@@ -55,25 +63,30 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     public void retriveData()
     {
+        loading= new SpotsDialog(MainScreen.this,R.style.Custom);
+        loading.show();
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            ads=new ArrayList<Ad>();
-                for(DataSnapshot data: dataSnapshot.getChildren())
-                {
-                    Ad ad= data.getValue(Ad.class);
+                ads = new ArrayList<Ad>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Ad ad = data.getValue(Ad.class);
                     ads.add(ad);
 
                 }
-                allAdsAdapter = new AllAdsAdapter(MainScreen.this,0,0,ads);
+                allAdsAdapter = new AllAdsAdapter(MainScreen.this, 0, 0, ads);
                 lv.setAdapter(allAdsAdapter);
+                loading.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+
+
     }
 
     @Override

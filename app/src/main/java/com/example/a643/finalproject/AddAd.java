@@ -1,11 +1,18 @@
 package com.example.a643.finalproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,7 +22,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddAd extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth FirebaseAuth;
@@ -31,10 +42,14 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
 
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ad);
+
         FirebaseAuth = FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         add= (Button)findViewById(R.id.addNewAd);
@@ -49,7 +64,11 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
         this.retrieveData();
 
 
+
+
     }
+
+
     public void retrieveData() {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
