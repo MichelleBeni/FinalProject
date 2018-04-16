@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.List;
 
 /**
@@ -18,6 +21,7 @@ import java.util.List;
 public class AllAdsAdapter extends ArrayAdapter<Ad> {
     Context context;
     List<Ad> objects;
+
 
     public AllAdsAdapter (Context context, int resource, int textViewResourceId, List<Ad> objects) {
         super(context, resource, textViewResourceId, objects);
@@ -40,7 +44,6 @@ public class AllAdsAdapter extends ArrayAdapter<Ad> {
         tvInfo.setText(temp.info);
         tvPhone.setText(temp.phone);
         tvEmail.setText(temp.email);
-
         return view;
 
     }

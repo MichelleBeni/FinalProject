@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -37,12 +39,24 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     private android.app.AlertDialog loading;
     AllAdsAdapter allAdsAdapter;
     private DatabaseReference database;
+    ImageView adPic;
+    String imageCode;
+
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         database= FirebaseDatabase.getInstance().getReference("AD");
         lv= (ListView)findViewById(R.id.lv);
+
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference=firebaseStorage.getReference();
+
+
 
       this.retriveData();
 

@@ -9,16 +9,18 @@ public class Ad {
     public String nameProduct;
     public String email;
     public String phone;
+    public String imageCode;
     public Ad()
     {
 
     }
-    public Ad(String nameProduct, String info, String email, String phone)
+    public Ad(String nameProduct, String info, String email, String phone, String imageCode)
     {
         this.nameProduct=nameProduct;
         this.info= info;
         this.email=email;
         this.phone=phone;
+        this.imageCode=imageCode;
 
     }
 
@@ -36,5 +38,9 @@ public class Ad {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getImageCode() {
+        return imageCode;
     }
 }
