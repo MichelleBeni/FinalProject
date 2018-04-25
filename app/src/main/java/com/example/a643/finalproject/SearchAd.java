@@ -63,6 +63,7 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
                 ads = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Ad ad = data.getValue(Ad.class);
+                    ad.setId(data.getKey());
                     ads.add(ad);
 
                 }

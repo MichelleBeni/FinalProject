@@ -1,5 +1,13 @@
 package com.example.a643.finalproject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+
 /**
  * Created by 643 on 17/01/2018.
  */
@@ -9,19 +17,18 @@ public class Ad {
     public String nameProduct;
     public String email;
     public String phone;
-    public String imageCode;
+    public String id;
+
     public Ad()
     {
 
     }
-    public Ad(String nameProduct, String info, String email, String phone, String imageCode)
+    public Ad(String nameProduct, String info, String email, String phone)
     {
         this.nameProduct=nameProduct;
         this.info= info;
         this.email=email;
         this.phone=phone;
-        this.imageCode=imageCode;
-
     }
 
     public String getNameProduct() {
@@ -40,7 +47,12 @@ public class Ad {
         return phone;
     }
 
-    public String getImageCode() {
-        return imageCode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

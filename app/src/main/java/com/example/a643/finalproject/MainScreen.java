@@ -45,6 +45,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
+    StorageReference imageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference=firebaseStorage.getReference();
+
+
 
 
 
@@ -84,8 +88,14 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ads = new ArrayList<Ad>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Ad ad = data.getValue(Ad.class);
-                    ads.add(ad);
+                    try {
+                        Ad ad = data.getValue(Ad.class);
+                        ad.setId(data.getKey());
+                        ads.add(ad);
+                    }catch(Exception ignored){
+
+                    }
+
 
                 }
                 allAdsAdapter = new AllAdsAdapter(MainScreen.this, 0, 0, ads);

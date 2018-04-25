@@ -1,9 +1,11 @@
 package com.example.a643.finalproject;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -12,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +60,6 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
     private final int PICK_IMAGE_REQUEST= 71;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
-    String imageCode;
 
 
 
@@ -133,12 +135,26 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
     if(v==add)
-    {   UploadImage();
-        Ad ad= new Ad(name.getText().toString(), info.getText().toString(), userEmail, phone,imageCode );
+    {
+
+        Ad ad= new Ad(name.getText().toString(), info.getText().toString(), userEmail, phone);
         adRef = database.getReference("AD").push();
         adRef.setValue(ad);
-        Intent intent = new Intent(AddAd.this,MainScreen.class);
-        startActivity(intent);
+        String key = adRef.getKey();
+        byte[] imageBytes = ImageTools.getBytesFromBitmap(ImageTools.getBitmapFromImage(btnPhoto));
+        FirebaseStorage.getInstance().getReference().child(key).putBytes(imageBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(AddAd.this, "success to upload image", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                } else {
+                    Toast.makeText(AddAd.this, "failed to upload image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
     if(v==btnPhoto)
     {
@@ -146,62 +162,24 @@ public class AddAd extends AppCompatActivity implements View.OnClickListener {
     }
     }
 
-    private void UploadImage()
-    {
-        if(filePath!=null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            imageCode = storageReference.getDownloadUrl().toString();
 
-            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    Toast.makeText(AddAd.this,"Uploaded ",Toast.LENGTH_SHORT).show();
-                }
-
-        }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(AddAd.this,"Not Uploaded "+e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded "+(int)progress+ "%" );
-                }
-            });
-
-        }
-    }
     private void chooseImage()
     {
-        Intent intent= new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_IMAGE_REQUEST);
+
+        Intent chooseImageIntent = ImageTools.getPickImageIntent(this);
+        startActivityForResult(chooseImageIntent, PICK_IMAGE_REQUEST);
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data )
     {
         super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null)
+        if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK)
         {
-            filePath = data.getData();
-            try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                btnPhoto.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            Bitmap bitmap = ImageTools.getImageFromResult(this,  resultCode, data);
+            bitmap = ImageTools.scaleBitmap(bitmap, 600, 600);
+            btnPhoto.setImageBitmap(bitmap);
         }
     }
 }
