@@ -27,8 +27,8 @@ dependencies {
     })
 
 
-        compile 'com.github.d-max:spots-dialog:0.7@aar'
 
+    compile 'com.github.d-max:spots-dialog:0.7@aar'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-core:11.6.2'

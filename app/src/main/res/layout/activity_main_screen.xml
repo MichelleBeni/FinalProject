@@ -8,77 +8,32 @@
    tools:context="com.example.a643.finalproject.MainScreen"
 
     >
-
-
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
 
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/search"
-            android:id="@+id/search_ad"
-            />
-
-        <TextView
-            android:id="@+id/SignOut"
-            android:layout_width="104dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:text="Sign Out"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
-            android:layout_marginLeft="220dp"
-
-            />
-    </LinearLayout>
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="550dp">
+
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/lv"
-        >
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     </ListView>
 
-</LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
 
-        <ImageView
-            android:id="@+id/myProfile"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="110dp"
-            android:background="@drawable/profile" />
-
-        <Button
-            android:id="@+id/AddAd"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="100dp"
-            android:background="@drawable/plus" />
-
-        <ImageView
-            android:id="@+id/messages"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/chat" />
-    </LinearLayout>
 
 
 </LinearLayout>
