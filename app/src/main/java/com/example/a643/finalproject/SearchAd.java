@@ -30,7 +30,10 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
     DatabaseReference Adref;
     ArrayList<Ad> ads;
     ArrayList<Ad> adsFind;
-
+    String Title ="";
+    String Info="";
+    String Email="";
+    String Phone="";
 
     AllAdsAdapter allAdsAdapter;
     ListView lv;
@@ -68,10 +71,14 @@ public class SearchAd extends AppCompatActivity implements View.OnClickListener 
 
                 }
                 for (int i = 0; i < ads.size(); i++) {
-                    String Title = ads.get(i).getNameProduct();
-                    String Info = ads.get(i).getInfo();
-                    String Email = ads.get(i).getEmail();
-                    String Phone= ads.get(i).getPhone();
+                   if(ads.get(i).getNameProduct()!=null)
+                   { Title = ads.get(i).getNameProduct();}
+                    if(ads.get(i).getInfo()!=null)
+                    {Info = ads.get(i).getInfo();}
+                    if(ads.get(i).getEmail()!=null)
+                    {Email = ads.get(i).getEmail();}
+                    if(ads.get(i).getPhone()!=null)
+                    {Phone= ads.get(i).getPhone();}
                     if (Title.contains(Key)||Info.contains(Key) || Email.contains(Key)|| Phone.contains(Key)) {
 
                      adsFind.add(ads.get(i));

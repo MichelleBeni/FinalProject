@@ -11,6 +11,7 @@ public class User {
     public String phone;
     public String email;
     public String password;
+    public String id;
 
      public User()
      {
@@ -34,4 +35,13 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
 }

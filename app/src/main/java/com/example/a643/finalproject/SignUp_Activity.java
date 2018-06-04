@@ -66,11 +66,13 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                                 etPassword.getText().toString(),etType.getText().toString(),etYears.getText().toString());
                         userRef= database.getReference("Users").push();
                         userRef.setValue(userMover);
+
                     }
                     else {
                         User user = new User(etName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
                         userRef = database.getReference("Users").push();
                         userRef.setValue(user);
+
                     }
                     Intent intent = new Intent(SignUp_Activity.this,Enter_Activity.class);
                     startActivity(intent);

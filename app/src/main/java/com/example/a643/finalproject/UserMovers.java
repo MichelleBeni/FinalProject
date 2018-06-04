@@ -24,4 +24,27 @@ public class UserMovers extends User {
 
 
     }
+
+    @Override
+    public String getPhone() {
+        return super.getPhone();
+    }
+
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    public String getLicenseType() {
+        return licenseType;
+    }
+
+    public String getYearsDrive() {
+        return yearsDrive;
+    }
 }

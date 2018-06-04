@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -22,14 +26,21 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
             </intent-filter>
         </activity>
         <activity android:name=".SignUp_Activity" />
-        <activity android:name=".MyProfile" />
         <activity android:name=".MainScreen" />
         <activity android:name=".SearchAd" />
         <activity android:name=".AddAd" />
-        <activity android:name=".EditAds"></activity>
+        <activity android:name=".About" />
+        <activity android:name=".AddAdMover" />
+
+        <service
+            android:name=".BatteryService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -2,10 +2,15 @@ package com.example.a643.finalproject;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SignalStrength;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +29,7 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
     TextView tvReg;
     EditText edEmail;
     EditText edPassword;
+    TextView btnRes;
     Dialog d;
     FirebaseAuth firebaseAuth;
     boolean succes;
@@ -41,6 +47,10 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
 
         edEmail=(EditText)findViewById(R.id.EmailInput);
         edPassword=(EditText)findViewById(R.id.PasswordInput);
+
+        btnRes=(TextView) findViewById(R.id.resetPassword);
+        btnRes.setOnClickListener(this);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
@@ -79,6 +89,46 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
             }
         });
         }
+    private void showuserUpdateDialog() {
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.updateuser, null);
+        alertBuilder.setView(dialogView);
+
+        final EditText etEmail = (EditText) dialogView.findViewById(R.id.myEmail);
+
+        final Button btnUpdate = (Button) dialogView.findViewById(R.id.SendReset);
+
+        alertBuilder.setTitle("Reseting Password");
+        final AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String Email = etEmail.getText().toString();
+
+
+                if (TextUtils.isEmpty(Email)) {
+                    etEmail.setError("put Email");
+                    return;
+                }
+
+                firebaseAuth.sendPasswordResetEmail(Email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(Enter_Activity.this,"Email Send", Toast.LENGTH_LONG);
+                        }
+                    }
+                });
+                alertDialog.dismiss();
+
+
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
@@ -93,6 +143,10 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
             Login();
 
 
+        }
+        if(v==btnRes)
+        {
+            showuserUpdateDialog();
         }
     }
 }

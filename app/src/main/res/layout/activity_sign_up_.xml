@@ -144,7 +144,7 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="Type of licence"
-        android:inputType="number"
+
         android:textColorHint="@color/common_google_signin_btn_text_dark_pressed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
