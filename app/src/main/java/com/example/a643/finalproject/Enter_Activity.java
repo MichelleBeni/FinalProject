@@ -82,6 +82,7 @@ public class Enter_Activity extends AppCompatActivity implements View.OnClickLis
                 {
                     Intent intent = new Intent(Enter_Activity.this, MainScreen.class);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(Enter_Activity.this, "Try Again",Toast.LENGTH_LONG).show();

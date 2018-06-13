@@ -3,6 +3,7 @@ package com.example.a643.finalproject;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
@@ -38,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -59,41 +61,41 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     Ad lastSelected;
     String KEY;
     FirebaseUser firebaseUser;
+    private final int PICK_IMAGE_REQUEST = 71;
 
-     DatabaseReference databaseUser;
+    DatabaseReference databaseUser;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
+    Bitmap bitmap;
     ArrayList<UserMovers> users;
-     StorageReference imageRef;
+    StorageReference imageRef;
     String userEmail;
     String phone;
     String Key;
     boolean Mover = false;
-    private boolean success=false;
-
+    private boolean success = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        database= FirebaseDatabase.getInstance().getReference("AD");
-        lv= (ListView)findViewById(R.id.lv);
-        databaseUser= FirebaseDatabase.getInstance().getReference("Users");
+        database = FirebaseDatabase.getInstance().getReference("AD");
+        lv = (ListView) findViewById(R.id.lv);
+        databaseUser = FirebaseDatabase.getInstance().getReference("Users");
         firebaseStorage = FirebaseStorage.getInstance();
-        storageReference=firebaseStorage.getReference();
+        storageReference = firebaseStorage.getReference();
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         this.retriveData();
         firebaseAuth = FirebaseAuth.getInstance();
-       firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
         userEmail = firebaseUser.getEmail();
         this.retrieveDataUser();
 
 
-
-        context= this;
+        context = this;
 
         checkSystemWritePermission();
 
@@ -102,44 +104,42 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     //making the info about the user
     public void retrieveDataUser() {
-       databaseUser.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               users = new ArrayList<UserMovers>();
+        databaseUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                users = new ArrayList<UserMovers>();
 
-               for (DataSnapshot data : dataSnapshot.getChildren()) {
-                   UserMovers user = data.getValue(UserMovers.class);
-                   users.add(user);
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    UserMovers user = data.getValue(UserMovers.class);
+                    users.add(user);
 
-               }
+                }
 
-               for (int i = 0; i < users.size(); i++) {
-                   String mail = users.get(i).getEmail();
-                   if (mail.equalsIgnoreCase(userEmail.toString())) {
-                       phone=users.get(i).getPhone();
+                for (int i = 0; i < users.size(); i++) {
+                    String mail = users.get(i).getEmail();
+                    if (mail.equalsIgnoreCase(userEmail.toString())) {
+                        phone = users.get(i).getPhone();
 
-                       if(users.get(i).getLicenseType()!=null||users.get(i).getYearsDrive()!=null)
-                       {
-                           Mover=true;
-                       }
+                        if (users.get(i).getLicenseType() != null || users.get(i).getYearsDrive() != null) {
+                            Mover = true;
+                        }
 
-                   }
+                    }
 
 
-               }
-           }
+                }
+            }
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-           }
-       });
+            }
+        });
     }
 
     //making info about the ads
-    public void retriveData()
-    {
-        loading= new SpotsDialog(MainScreen.this,R.style.Custom);
+    public void retriveData() {
+        loading = new SpotsDialog(MainScreen.this, R.style.Custom);
         loading.show();
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -150,7 +150,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
                         Ad ad = data.getValue(Ad.class);
                         ad.setId(data.getKey());
                         ads.add(ad);
-                    }catch(Exception ignored){
+                    } catch (Exception ignored) {
 
                     }
 
@@ -163,8 +163,8 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         lastSelected = ads.get(position);
-                        KEY= lastSelected.getId();
-                        if(lastSelected.getEmail().equals(firebaseUser.getEmail().toString())) {
+                        KEY = lastSelected.getId();
+                        if (lastSelected.getEmail().equals(firebaseUser.getEmail().toString())) {
                             showUpdateDialog(lastSelected.getNameProduct(), lastSelected.getInfo());
                         }
 
@@ -184,24 +184,30 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     }
 
     // Updating ad
-    private void showUpdateDialog(String name, String info)
-    {
-        AlertDialog.Builder dialogBuilder= new AlertDialog.Builder(this);
+    private void showUpdateDialog(String name, String info) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView= inflater.inflate(R.layout.updatedialog,null);
+        final View dialogView = inflater.inflate(R.layout.updatedialog, null);
 
         dialogBuilder.setView(dialogView);
 
-        final EditText EditTitle = (EditText)dialogView.findViewById(R.id.changeTitle);
-        final EditText EditInfo= (EditText)dialogView.findViewById(R.id.changeInfo);
-        final Button  btnUpdate= (Button)dialogView.findViewById(R.id.update);
-        final Button btnDelete= (Button)dialogView.findViewById(R.id.Delete);
-        final AlertDialog alertDialog= dialogBuilder.create();
+        final EditText EditTitle = (EditText) dialogView.findViewById(R.id.changeTitle);
+        final EditText EditInfo = (EditText) dialogView.findViewById(R.id.changeInfo);
+        final Button btnUpdateImage = (Button) dialogView.findViewById(R.id.updateImage);
+        final Button btnUpdate = (Button) dialogView.findViewById(R.id.update);
+        final Button btnDelete = (Button) dialogView.findViewById(R.id.Delete);
+        final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
+        btnUpdateImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAd(EditTitle.getText().toString(),EditInfo.getText().toString());
+                updateAd(EditTitle.getText().toString(), EditInfo.getText().toString());
                 alertDialog.dismiss();
 
 
@@ -217,24 +223,41 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         });
 
 
+    }
+
+    private void chooseImage() {
+
+        Intent chooseImageIntent = ImageTools.getPickImageIntent(this);
+        startActivityForResult(chooseImageIntent, PICK_IMAGE_REQUEST);
 
     }
 
-    private boolean updateAd(String title, String info)
-    {
+    private boolean updateAd(String title, String info) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("AD").child(KEY);
-        Ad ad = new Ad(title,info,userEmail,phone);
+        Ad ad = new Ad(title, info, userEmail, phone);
         databaseReference.setValue(ad);
-        Toast.makeText(this,"Ad updated",Toast.LENGTH_LONG).show();
+        String key = databaseReference.getKey();
+        byte[] imageBytes = ImageTools.getBytesFromBitmap(bitmap);
+        FirebaseStorage.getInstance().getReference().child(key).putBytes(imageBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainScreen.this, "success to upload image", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(MainScreen.this, "failed to upload image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Toast.makeText(this, "Ad updated", Toast.LENGTH_LONG).show();
         return true;
     }
 
-    private boolean deleteAd()
-    {
+    private boolean deleteAd() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("AD").child(KEY);
 
         databaseReference.removeValue();
-        Toast.makeText(this,"Ad Deleted",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Ad Deleted", Toast.LENGTH_LONG).show();
         return true;
     }
 
@@ -243,7 +266,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu,menu);
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -251,35 +274,32 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about:
-                intent=new Intent(context,About.class);
+                intent = new Intent(context, About.class);
                 startActivity(intent);
                 return true;
 
             case R.id.searchAd:
 
-                intent = new Intent(context,SearchAd.class);
+                intent = new Intent(context, SearchAd.class);
                 startActivity(intent);
                 return true;
 
-            case  R.id.signOut:
+            case R.id.signOut:
                 firebaseAuth.signOut();
                 intent = new Intent(context, Enter_Activity.class);
                 startActivity(intent);
                 return true;
 
-            case  R.id.addNewAd:
-               if(Mover)
-                {
-                    intent = new Intent(context,AddAdMover.class);
+            case R.id.addNewAd:
+                if (Mover) {
+                    intent = new Intent(context, AddAdMover.class);
                     startActivity(intent);
-                    return  true;
-                }
-                else {
+                    return true;
+                } else {
                     intent = new Intent(context, AddAd.class);
                     startActivity(intent);
                     return true;
                 }
-
 
 
             default:
@@ -289,8 +309,6 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
         }
     }
-
-
 
 
     private void checkSystemWritePermission() {
@@ -308,6 +326,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -319,15 +338,16 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
                     startService(new Intent(this, BatteryService.class));
                 }
             }
+        } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+             bitmap = ImageTools.getImageFromResult(this, resultCode, data);
+            bitmap = ImageTools.scaleBitmap(bitmap, 600, 600);
+
         }
     }
 
 
     @Override
     public void onClick(View v) {
-
-
-
 
 
     }
