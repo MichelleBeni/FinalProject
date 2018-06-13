@@ -13,6 +13,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -207,10 +209,14 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAd(EditTitle.getText().toString(), EditInfo.getText().toString());
-                alertDialog.dismiss();
+                if(EditTitle.getText().length()!=0) {
+                    EditTitle.setError(null);
+                    updateAd(EditTitle.getText().toString(), EditInfo.getText().toString());
+                    alertDialog.dismiss();
 
-
+                }else{
+                    EditTitle.setError("Cannot Be Empty");
+                }
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
